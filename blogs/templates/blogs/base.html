@@ -1,0 +1,108 @@
+{% load bootstrap5 %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,
+      shrink-to-fit=no">
+    <title>My blog</title>
+
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+  </head>
+  
+  <body>
+    <header class="position-relative border-bottom bg-light shadow-lg mb-4">
+      <nav class="top-50 p-2">
+        <a class="text-decoration-none fs-5" href="{% url 'blogs:index' %}">
+          My blog</a> &raquo;
+        <a class="text-decoration-none fs-5" href="{% url 'blogs:notes' %}">
+          notes</a>
+      </nav>
+      <div class="position-absolute end-0 top-0 m-1">
+        {% if user.is_authenticated %}
+          <form method="post" action="{% url 'users:logout' %}">
+            {% csrf_token %}
+            {% buttons %}
+              <button class="btn btn-primary" type="submit">Log out</button>
+            {% endbuttons %}
+          </form>
+        {% endif %}
+        </div>
+      </div>
+    </header>
+
+    <main class="container bg-light">
+      <div class="border-bottom mb-3 pt-2">
+        {% block page_header %}{% endblock page_header %}
+      </div>
+      <div>
+        {% block content %}{% endblock content %}
+      </div>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+  {% comment %} </head>
+  <body>
+    <header class="shadow-lg p-2 bg-light navbar-brand border-bottom mb-4">
+      <nav>
+        <div>
+          <a class="text-secondary" href="{% url 'blogs:index' %}">My blog</a>
+        </div>
+        <div>
+          <a class="text-secondary" href="{% url 'blogs:notes' %}">Notes</a>
+        </div>
+      </nav>
+      <div>
+        {% if user.is_authenticated %}
+          <form method="post" action="{% url 'users:logout' %}">
+          {% csrf_token %}
+          <button type="submit">Log out</button>
+        {% else %}
+          <a href="{% url 'users:login' %}">Log in</a>
+          <a href="{% url 'users:register' %}">Register</a>
+        {% endif %}
+      </div>
+    </header>
+    <main>
+      <div>
+        {% block page_header %}{% endblock page_header %}
+      </div>
+      <div>
+        {% block content %}{% endblock content %}
+      </div>
+    </main>
+</html> {% endcomment %}
+
+
+
+
+
+
+{% comment %} <a href="{% url 'blogs:index' %}">Main page</a> -
+<a href="{% url 'blogs:notes' %}">Notes</a> - 
+
+{% if user.is_authenticated %}
+  Hello, {{ user.username }}
+  <form method="post" action="{% url 'users:logout' %}">
+    {% csrf_token %}
+  
+  <p><button type="submit">Log out</button></p>
+  </form>
+
+{% else %}
+  <a href="{% url 'users:register' %}">Register</a> -
+  <a href="{% url 'users:login' %}">Log in</a>
+{% endif %}
+
+{%block content %}{% endblock content %} {% endcomment %}
